@@ -15,18 +15,20 @@ CREATE TABLE IF NOT EXISTS plr.tbl_player(
 	experience INTEGER DEFAULT 0,
 	created_datetime TIMESTAMP DEFAULT NOW(),
 	last_logged_in TIMESTAMP,
-	is_active BOOLEAN DEFAULT TRUE
+	deactivated_datetime TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS plr.tbl_player_team(
 	player_team_id BIGSERIAL PRIMARY KEY,
 	player_team_name VARCHAR(64)
 );
+
 CREATE TABLE IF NOT EXISTS plr.tbl_player_level(
 	tbl_player_level BIGSERIAL PRIMARY KEY,
 	player_id BIGSERIAL FOREIGN KEY,
 	level INTEGER DEFAULT 1
 );
+
 CREATE TABLE IF NOT EXISTS plr.tbl_player_placeable_object(
 	player_placeable_object_id BIGSERIAL PRIMARY KEY,
 	player_id BIGSERIAL FOREIGN KEY,
@@ -45,7 +47,7 @@ CREATE TABLE IF NOT EXISTS po.tbl_placeable_object(
 	placeable_object_image VARCHAR(255),
 	placeable_object_icon VARCHAR(255),
 	placeable_object_desciption(4096),
-	is_active BOOLEAN DEFAULT TRUE
+	deactivated_datetime TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS po.tbl_placeable_object_type(
@@ -74,8 +76,9 @@ CREATE TABLE IF NOT EXISTS tsk.tbl_task(
 	task_content VARCHAR(32768) NOT NULL,
 	task_answer VARCHAR(255) NOT NULL DEFAULT '1',
 	created_datetime TIMESTAMP DEFAULT NOW(),
-	is_active BOOLEAN DEFAULT TRUE
+	deactivated_datetime TIMESTAMP
 );
+
 CREATE TABLE IF NOT EXISTS tsk.tbl_task_level(
 	task_level_id BIGSERIAL PRIMARY KEY,
 	task_id BIGSERIAL FOREIGN KEY,
