@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  postgresql:
+    image: postgres
+    container_name: postgredb
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./postgredb/pgconfig/postgredb.env
+    volumes:
+      - ./postgredb/pgconfig/postgresql.conf:/etc/postgresql/postgresql.conf
+      - ./postgredb/pgdata:/var/lib/postgresql/data
+      - ./postgredb/pgconfig/create_postgredb.sql:/docker-entrypoint-initdb.d/create_postgredb.sql
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
+    restart: always
+  
